@@ -377,6 +377,18 @@ body:has(dialog[open]) { overflow: hidden; }
   padding: 16px var(--gutter) calc(16px + env(safe-area-inset-bottom));
 }
 
+/* Pregunta "¿Te gustó alguna otra pintura?" */
+.ask {
+  width: calc(100% - 2 * var(--gutter)); max-width: 420px;
+  margin: auto; border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.ask[open] { animation: fade .2s ease; }
+.ask-inner { padding: 28px 24px 24px; text-align: center; }
+.ask h3 { font-size: 1.8rem; }
+.ask-sub { margin: 8px 0 0; color: var(--muted); }
+.ask-list { margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-size: 1.1rem; }
+.ask-actions { display: grid; gap: 10px; margin-top: 24px; }
+
 /* ---------- Aviso (toast) ---------- */
 
 .toast {

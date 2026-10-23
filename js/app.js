@@ -193,12 +193,11 @@
     const actions = $("#viewer-actions");
     actions.innerHTML = "";
     if (sePuedePedir(o)) {
-      const pedir = document.createElement("a");
+      const pedir = document.createElement("button");
+      pedir.type = "button";
       pedir.className = "btn btn-primary";
-      pedir.href = waLink([o]);
-      pedir.target = "_blank";
-      pedir.rel = "noopener";
       pedir.textContent = accionPedido(o);
+      pedir.addEventListener("click", () => pedirObra(o.id));
       const agregar = document.createElement("button");
       agregar.type = "button";
       agregar.className = "btn btn-ghost";
@@ -207,6 +206,32 @@
       actions.append(pedir, agregar);
     }
   }
+
+  // ---------- "Pedir": suma la obra y pregunta si quiere otra ----------
+
+  const ask = $("#ask");
+
+  function pedirObra(id) {
+    if (!enCarrito(id)) {
+      carrito.push(id);
+      guardarCarrito();
+      renderCarrito();
+      renderGrid();
+      renderViewer();
+    }
+    const obras = carrito.map((x) => byId.get(x));
+    $("#ask-list").textContent = `Tu selección: ${obras.map((o) => o.titulo).join(", ")}`;
+    $("#ask-no").href = waLink(obras);
+    ask.showModal();
+  }
+
+  $("#ask-yes").addEventListener("click", () => {
+    ask.close();
+    viewer.close();
+    $("#obras").scrollIntoView();
+    toast("Elegí otra obra y tocá «Pedir» para sumarla");
+  });
+  $("#ask-no").addEventListener("click", () => ask.close());
 
   function mover(delta) {
     const i = OBRAS.findIndex((o) => o.id === actual);
@@ -235,7 +260,7 @@
   // ---------- Diálogos: cerrar tocando afuera ----------
 
   const cart = $("#cart");
-  [viewer, cart].forEach((d) =>
+  [viewer, cart, ask].forEach((d) =>
     d.addEventListener("click", (e) => { if (e.target === d) d.close(); })
   );
   $("#cart-open").addEventListener("click", () => { renderCarrito(); cart.showModal(); });
