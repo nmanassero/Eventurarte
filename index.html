@@ -138,6 +138,19 @@
     </div>
   </dialog>
 
+  <!-- Pregunta después de "Pedir": ¿sumar otra obra o ir a WhatsApp? -->
+  <dialog class="ask" id="ask" aria-labelledby="ask-title">
+    <div class="ask-inner">
+      <h3 id="ask-title">¿Te gustó alguna otra pintura?</h3>
+      <p class="ask-sub">¿Querés sumar otra a tu selección?</p>
+      <p class="ask-list" id="ask-list"></p>
+      <div class="ask-actions">
+        <button class="btn btn-primary btn-block" id="ask-yes" type="button">Sí, quiero ver más</button>
+        <a class="btn btn-ghost btn-block" id="ask-no" href="#" target="_blank" rel="noopener">No, ir a WhatsApp</a>
+      </div>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="js/obras.js"></script>
